@@ -1,24 +1,16 @@
 import * as React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem} from '@mui/material'
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 
 const LandingNav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -72,10 +64,20 @@ const LandingNav = () => {
               }}
             >
                 <MenuItem>
-                  <Typography>Sign In</Typography>
+                  <Typography>
+                    <Link href='/signin' sx={{
+                      textDecoration: 'none',
+                      color: 'black'
+                    }}>Sign In</Link>
+                  </Typography>
                 </MenuItem>
                 <MenuItem>
-                  <Typography>Sign Up</Typography>
+                  <Typography>
+                    <Link href='/signup'sx={{
+                      textDecoration: 'none',
+                      color: 'black'
+                    }}>Sign Up</Link>
+                  </Typography>
                 </MenuItem>
             </Menu>
           </Box>
@@ -97,12 +99,12 @@ const LandingNav = () => {
             Affluence
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button
+              <Button href='/signin'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Sign In
               </Button>
-              <Button
+              <Button href='/signup'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Sign Up
