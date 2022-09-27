@@ -7,8 +7,10 @@ const MongoStore = require('connect-mongo')
 const flash = require('express-flash')
 const logger = require('morgan')
 const connectDB = require('./config/database')
+const cors = require('cors')
 
 const landingRoutes = require('./routes/landingRoutes')
+const testAPIRouter = require('./routes/testAPI')
 
 require('dotenv').config({path: './config/.env'})
 
@@ -17,10 +19,10 @@ require('./config/passport')(passport)
 
 connectDB();
 
-app.use('/', landingRoutes)
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cors());
 app.use(logger('dev'))
 // Sessions
 app.use(

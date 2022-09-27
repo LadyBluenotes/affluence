@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Footer from '../../components/footer';
 
-export default function SignUp() {
+export default function SignUp(props) {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -19,7 +20,6 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    
   };
 
   return (
