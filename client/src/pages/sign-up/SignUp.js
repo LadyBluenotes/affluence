@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,9 +15,12 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
+    
   };
 
   return (
