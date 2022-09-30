@@ -1,10 +1,9 @@
 const passport = require('passport')
 const validator = require('validator')
-const User = require('../models/User')
 
 exports.getLogin = (req, res) => {
     if (req.user) {
-        return res.redirect('/dashboard')
+        return res.redirect('/home')
     }
     res.render('login', {
         title: 'Login'
@@ -31,7 +30,7 @@ exports.postLogin = (req, res, next) => {
         req.logIn(user, (err) => {
             if (err) { return next(err) }
             req.flash('success', { msg: 'Success! You are logged in.' })
-            res.redirect(req.session.returnTo || '/dashboard')
+            res.redirect(req.session.returnTo || '/home')
         })
     })(req, res, next)
 }
@@ -49,12 +48,16 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
     if (req.user) {
-        return res.redirect('/dashboard')
+        console.log('SIGNED UP ALREADY')
+        return res.writeHead(302, {
+            Location: 'http://localhost:3000/home'
+        });
     }
-    res.render('signup', {
-        title: 'Create Account'
-    })
+    res.writeHead(302, {
+        Location: 'http://localhost:3000/'
+    });
 }
+
 
 exports.postSignup = (req, res, next) => {
     const validationErrors = []
@@ -64,26 +67,31 @@ exports.postSignup = (req, res, next) => {
 
     if (validationErrors.length) {
         req.flash('errors', validationErrors)
-        return res.redirect('../signup')
+        return res.writeHead(302, {
+            Location: 'http://localhost:3000/signup'
+        });
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
     console.log(req.body)
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        userName: req.body.userName,
         email: req.body.email,
         password: req.body.password
     })
 
     User.findOne({$or: [
+        {firstName: req.body.firstName},
+        {lastName: req.body.lastName},
         {email: req.body.email},
         {userName: req.body.userName}
     ]}, (err, existingUser) => {
         if (err) { return next(err) }
         if (existingUser) {
             req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-            return res.redirect('../signup')
+            return res.writeHead(302, {
+                Location: 'http://localhost:3000/signup'
+            });
         }
 
         user.save((err) => {
@@ -93,7 +101,9 @@ exports.postSignup = (req, res, next) => {
                 return next(err)
               }
               req.flash('success', { msg: 'Success! You are logged in.' })
-              return res.redirect('/dashboard')
+              res.writeHead(302, {
+                Location: 'http://localhost:3000/home'
+            });
             })
           })
     })

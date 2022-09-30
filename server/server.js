@@ -9,8 +9,8 @@ const logger = require('morgan')
 const connectDB = require('./config/database')
 const cors = require('cors')
 
-const landingRoutes = require('./routes/landingRoutes')
-const testAPIRouter = require('./routes/testAPI')
+const landingRoutes = require('./routes/landing')
+const testAPIRouter = require('./routes/test')
 
 require('dotenv').config({path: './config/.env'})
 
@@ -41,7 +41,10 @@ app.use(passport.session());
 app.use(flash());
 
 //Routes
+app.get('/data', testAPIRouter)
 
-app.listen(process.env.PORT || 3000, ()=>{
+app.get('/signup', landingRoutes)
+
+app.listen(process.env.PORT || 8000, ()=>{
   console.log(`Server is running`)
 })    

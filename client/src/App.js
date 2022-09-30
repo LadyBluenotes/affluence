@@ -8,6 +8,7 @@ import './App.css';
 import LandingPage from './pages/landing-page/LandingPage'
 import SignIn from './pages/sign-in/SignIn'
 import SignUp from './pages/sign-up/SignUp'
+import Home from './pages/home/Home'
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
         <Route 
           path ='/signup'
           element={<SignUp />}
+        />
+        <Route 
+          path='/home'
+          element={<Home />}
         />
       </Routes>
     </Router>

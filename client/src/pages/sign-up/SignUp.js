@@ -11,7 +11,7 @@ import Footer from '../../components/footer';
 
 export default function SignUp(props) {
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -20,6 +20,23 @@ export default function SignUp(props) {
       email: data.get('email'),
       password: data.get('password'),
     });
+    let res = await fetch('http://localhost:8000/signup');
+    let info = await res.json();
+    console.log(info)
+    
+    let response = await fetch('http://localhost:8000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+    })
+    console.log(response)
   };
 
   return (
