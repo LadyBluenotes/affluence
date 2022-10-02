@@ -8,9 +8,9 @@ const flash = require('express-flash')
 const logger = require('morgan')
 const connectDB = require('./config/database')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
-const landingRoutes = require('./routes/landing')
-const testAPIRouter = require('./routes/test')
+const userRoutes = require('./routes/user.routes')
 
 require('dotenv').config({path: './config/.env'})
 
@@ -24,6 +24,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors());
 app.use(logger('dev'))
+
+
 // Sessions
 app.use(
     session({
@@ -41,9 +43,9 @@ app.use(passport.session());
 app.use(flash());
 
 //Routes
-app.get('/data', testAPIRouter)
+// app.get('/data', testAPIRouter)
 
-app.get('/signup', landingRoutes)
+app.use('/', userRoutes)
 
 app.listen(process.env.PORT || 8000, ()=>{
   console.log(`Server is running`)

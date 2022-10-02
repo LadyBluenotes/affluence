@@ -1,16 +1,18 @@
 const passport = require('passport')
 const validator = require('validator')
+const User = require('../models/User.model')
 
-exports.getLogin = (req, res) => {
+const getLogin = (req, res) => {
     if (req.user) {
-        return res.redirect('/home')
+        console.log('Already logged in.')
+        return res.redirect('http://localhost:3000/home')
     }
     res.render('login', {
         title: 'Login'
     })
 }
 
-exports.postLogin = (req, res, next) => {
+const postLogin = (req, res, next) => {
     const validationErrors = []
     if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
     if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
@@ -30,46 +32,39 @@ exports.postLogin = (req, res, next) => {
         req.logIn(user, (err) => {
             if (err) { return next(err) }
             req.flash('success', { msg: 'Success! You are logged in.' })
-            res.redirect(req.session.returnTo || '/home')
+            res.redirect(req.session.returnTo || 'http://localhost:3000/home')
         })
     })(req, res, next)
 }
 
-exports.logout = (req, res) => {
+const logout = (req, res) => {
     req.logout(() => {
         console.log('User has logged out.')
     })
     req.session.destroy((err) => {
         if (err) console.log('Error : Failed to destroy the session during logout.', err)
         req.user = null
-        res.redirect('/')
+        res.redirect('http://localhost:3000/home')
     })
 }
 
-exports.getSignup = (req, res) => {
+const getSignup = (req, res) => {
     if (req.user) {
-        console.log('SIGNED UP ALREADY')
-        return res.writeHead(302, {
-            Location: 'http://localhost:3000/home'
-        });
+        return res.redirect('/')
     }
-    res.writeHead(302, {
-        Location: 'http://localhost:3000/'
-    });
+    // res.render('signup', {
+    //     title: 'Create Account'
+    // })
 }
 
-
-exports.postSignup = (req, res, next) => {
+const postSignup = (req, res, next) => {
     const validationErrors = []
     if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
     if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' })
-    if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' })
 
     if (validationErrors.length) {
         req.flash('errors', validationErrors)
-        return res.writeHead(302, {
-            Location: 'http://localhost:3000/signup'
-        });
+        return res.redirect('/signup')
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
     console.log(req.body)
@@ -81,17 +76,12 @@ exports.postSignup = (req, res, next) => {
     })
 
     User.findOne({$or: [
-        {firstName: req.body.firstName},
-        {lastName: req.body.lastName},
         {email: req.body.email},
-        {userName: req.body.userName}
     ]}, (err, existingUser) => {
         if (err) { return next(err) }
         if (existingUser) {
             req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-            return res.writeHead(302, {
-                Location: 'http://localhost:3000/signup'
-            });
+            return res.redirect('/signup')
         }
 
         user.save((err) => {
@@ -101,10 +91,10 @@ exports.postSignup = (req, res, next) => {
                 return next(err)
               }
               req.flash('success', { msg: 'Success! You are logged in.' })
-              res.writeHead(302, {
-                Location: 'http://localhost:3000/home'
-            });
+              return res.redirect('http://localhost:3000/home')
             })
           })
     })
 }
+
+module.exports = { getLogin, postLogin, getSignup, postSignup, logout }

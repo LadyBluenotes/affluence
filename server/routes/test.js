@@ -1,7 +1,9 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-const { getData } = require('../controllers/test');
+const userController = require('../controllers/user.controllers');
 
-router.get('/data', getData )
+// router.get('/data', userController.getSignup)
+router.post('/signup', userController.getSignup )
+
 module.exports = router;
