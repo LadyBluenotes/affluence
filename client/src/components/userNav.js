@@ -1,22 +1,12 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import { Link, ListItem, ListItemButton, ListItemIcon, ListItemText, IconButton, Divider, Typography, CssBaseline, List, Toolbar, Box } from '@mui/material';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-
 import HomeIcon from '@mui/icons-material/Home';
 import TransactionsIcon from '@mui/icons-material/AccountBalanceWallet';
 import IncomeIcon from '@mui/icons-material/AttachMoney';
@@ -27,9 +17,6 @@ import IvestmentIcon from '@mui/icons-material/ShowChart';
 import SettingIcon from '@mui/icons-material/Settings';
 import ProfileIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-
-
-
 
 const drawerWidth = 240;
 
@@ -140,7 +127,10 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-        <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItem disablePadding sx={{ 
+            display: 'block',
+            color: 'black'
+            }} component={Link} href='/home'>
             <ListItemButton
                 sx={{
                 minHeight: 48,
@@ -160,7 +150,10 @@ export default function MiniDrawer() {
             <ListItemText sx={{ opacity: open ? 1 : 0 }}>Home</ListItemText>
         </ListItemButton>
         </ListItem>
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/transactions'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -180,7 +173,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Transactions</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/income'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -200,7 +196,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Income</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/expenses'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -220,7 +219,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Expenses</ListItemText>
                 </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/debt'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -240,7 +242,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Debt</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/savings'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -260,7 +265,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Savings</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/investments'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -283,7 +291,10 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/settings'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -303,7 +314,10 @@ export default function MiniDrawer() {
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Settings</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/profile'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -322,7 +336,10 @@ export default function MiniDrawer() {
                     </ListItemIcon>
                     <ListItemText sx={{ opacity: open ? 1 : 0 }}>Profile</ListItemText>
                 </ListItemButton>
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItem disablePadding sx={{ 
+                    display: 'block',
+                    color: 'black'
+                     }} component={Link} href='/logout'>
                 <ListItemButton
                     sx={{
                     minHeight: 48,
@@ -347,7 +364,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <h1> content </h1>
+        <h1>Content</h1>
       </Box>
     </Box>
   );
