@@ -17,6 +17,7 @@ import IvestmentIcon from '@mui/icons-material/ShowChart';
 import SettingIcon from '@mui/icons-material/Settings';
 import ProfileIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HorizontalBar from './BarCharts/horizontalBar';
 
 const drawerWidth = 240;
 
@@ -85,7 +86,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+export default function UserNav() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -115,7 +116,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            'User' Dashboard
+            'User' Wealth Diary
           </Typography>
         </Toolbar>
       </AppBar>
@@ -364,6 +365,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+
         <h1>Content</h1>
       </Box>
     </Box>
