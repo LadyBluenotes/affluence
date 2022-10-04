@@ -1,100 +1,38 @@
-const passport = require('passport')
-const validator = require('validator')
 const User = require('../models/User.model')
 
 const getLogin = (req, res) => {
-    if (req.user) {
-        console.log('Already logged in.')
-        return res.redirect('http://localhost:3000/home')
-    }
-    res.render('login', {
-        title: 'Login'
-    })
+    // if user is already in valid session, redirect to user page
+    res.json({mssg: 'login user'})
 }
 
-const postLogin = (req, res, next) => {
-    const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
-    if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
+const loginUser = (req, res, next) => {
+    // check if email and password are valid
 
-    if (validationErrors.length) {
-        req.flash('errors', validationErrors)
-        return res.redirect('/login')
-    }
-    req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
-  
-    passport.authenticate('local', (err, user, info) => {
-        if (err) { return next(err) }
-        if (!user) {
-            req.flash('errors', info)
-            return res.redirect('/login')
-        }
-        req.logIn(user, (err) => {
-            if (err) { return next(err) }
-            req.flash('success', { msg: 'Success! You are logged in.' })
-            res.redirect(req.session.returnTo || 'http://localhost:3000/home')
-        })
-    })(req, res, next)
+    // if not valid display error message
+
+    // if valid redirect to user page
+    res.json({mssg: 'login user'})
 }
 
 const logout = (req, res) => {
-    req.logout(() => {
-        console.log('User has logged out.')
-    })
-    req.session.destroy((err) => {
-        if (err) console.log('Error : Failed to destroy the session during logout.', err)
-        req.user = null
-        res.redirect('http://localhost:3000/home')
-    })
+    // logout user when button is pressed
+    res.json({mssg: 'log out user'})
 }
 
-const getSignup = (req, res) => {
-    if (req.user) {
-        return res.redirect('/')
+const createUser = async (req, res, next) => {
+    const { firstName, lastName, email, password } = req.body;
+
+    try {
+        const user = await User.create({ firstName, lastName, email, password });
+        res.status(200).json(user);
+
+    }catch (error){
+        res.status(400).json({Error: error.message})
     }
-    // res.render('signup', {
-    //     title: 'Create Account'
-    // })
+
+    // check if user is in db
+    // if user is in db display error message
+    // if user is not in db, create user and redirect to user page
 }
 
-const postSignup = (req, res, next) => {
-    const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
-    if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' })
-
-    if (validationErrors.length) {
-        req.flash('errors', validationErrors)
-        return res.redirect('/signup')
-    }
-    req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
-    console.log(req.body)
-    const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password
-    })
-
-    User.findOne({$or: [
-        {email: req.body.email},
-    ]}, (err, existingUser) => {
-        if (err) { return next(err) }
-        if (existingUser) {
-            req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-            return res.redirect('/signup')
-        }
-
-        user.save((err) => {
-            if (err) { return next(err) }
-            return req.logIn(user, (err) => {
-              if (err) {
-                return next(err)
-              }
-              req.flash('success', { msg: 'Success! You are logged in.' })
-              return res.redirect('http://localhost:3000/home')
-            })
-          })
-    })
-}
-
-module.exports = { getLogin, postLogin, getSignup, postSignup, logout }
+module.exports = { getLogin, loginUser, createUser, logout }

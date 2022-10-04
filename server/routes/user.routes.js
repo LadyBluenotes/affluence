@@ -3,15 +3,16 @@ const router = express.Router();
 
 const {
     getLogin,
-    getSignup,
-    postLogin,
-    postSignup
+    loginUser,
+    createUser,
+    logout
 } = require('../controllers/user.controllers');
 
-router.post('/signup', postSignup)
-router.get('/signup', getSignup)
+router.post('/signup', createUser)
 
-router.post('/login', getLogin)
-router.get('/postLogin', postLogin)
+router.post('/login', loginUser)
+router.get('/login', getLogin)
 
-module.exports = router
+router.get('/logout', logout)
+
+module.exports = router;
