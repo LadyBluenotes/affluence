@@ -1,4 +1,5 @@
 const User = require('../models/User.model')
+const validator = require('validator')
 
 const getLogin = (req, res) => {
     // if user is already in valid session, redirect to user page
@@ -22,17 +23,30 @@ const logout = (req, res) => {
 const createUser = async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body;
 
-    try {
-        const user = await User.create({ firstName, lastName, email, password });
-        res.status(200).json(user);
+    if (password.length < 8) {
+        return res.status(400).json({ message: "Please ensure password is a minimum of 8 characters long." })
+      }
 
-    }catch (error){
-        res.status(400).json({Error: error.message})
+    const existUser = await User.findOne({ email });
+    if (existUser) {
+        const error = new Error("Email already in use. Please try another.");
+        return res.json({ msg: error.message });
     }
 
-    // check if user is in db
-    // if user is in db display error message
-    // if user is not in db, create user and redirect to user page
+    try {
+        const user = await User.create({ firstName, lastName, email, password });
+        
+        res.status(200).json({
+            message: "User successfully created.",
+            user,
+          });
+
+    }catch (Error){
+        res.status(400).json({
+            message: "Error creating user.",
+            error: err.mesage,
+          })
+    }
 }
 
 module.exports = { getLogin, loginUser, createUser, logout }

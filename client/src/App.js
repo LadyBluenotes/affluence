@@ -8,6 +8,7 @@ import LandingPage from './pages/landing-page/LandingPage'
 import SignIn from './pages/sign-in/SignIn'
 import SignUp from './pages/sign-up/SignUp'
 import Home from './pages/home/Home'
+import Transactions from './pages/transactions/Transactions'
 
 function App() {
   return (
@@ -28,6 +29,10 @@ function App() {
         <Route 
           path='/home'
           element={<Home />}
+        />
+        <Route
+          path='/transactions'
+          element={<Transactions />}
         />
       </Routes>
     </Router>

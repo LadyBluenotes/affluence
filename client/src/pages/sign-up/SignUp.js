@@ -12,8 +12,11 @@ import Footer from '../../components/footer';
 export default function SignUp(props) {
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+
     const data = new FormData(e.currentTarget);
+    
     console.log({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),

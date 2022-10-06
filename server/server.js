@@ -20,8 +20,7 @@ const { json } = require('body-parser');
 // require('./config/passport')(passport)
 
 app.use(express.static("public"));
-// app.use(express.json())
-// app.use(cors());
+
   
 // // Passport middleware
 // app.use(passport.initialize());
@@ -37,6 +36,7 @@ app.use((req, res, next) =>  {
   next();
 });
 app.use(logger('dev'));
+app.use(cors());
 
 // Sessions
 app.use(
