@@ -1,18 +1,45 @@
 const User = require('../models/User.model')
-const validator = require('validator')
 
 const getLogin = (req, res) => {
-    // if user is already in valid session, redirect to user page
-    res.json({mssg: 'login user'})
+
 }
 
-const loginUser = (req, res, next) => {
+const loginUser = async (req, res, next) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email })
+        if (!user) {
+            res.status(401).json({
+                message: 'Login was not successful.',
+                error: "Email not found."
+            })
+        } else if (user && (await user.comparePassword(password))){
+            res.json({
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
+            })
+
+        } else {
+
+            res.status(200).json({
+                message: "Successful login.",
+                user
+            })
+        }
+    } catch(err) {
+        res.status(400).json({
+            message: "Error has occured.",
+            err: err.message
+        })
+    }
     // check if email and password are valid
 
     // if not valid display error message
 
     // if valid redirect to user page
-    res.json({mssg: 'login user'})
 }
 
 const logout = (req, res) => {
