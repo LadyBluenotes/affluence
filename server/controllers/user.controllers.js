@@ -35,16 +35,10 @@ const loginUser = async (req, res, next) => {
             err: err.message
         })
     }
-    // check if email and password are valid
-
-    // if not valid display error message
-
-    // if valid redirect to user page
 }
 
 const logout = (req, res) => {
-    // logout user when button is pressed
-    res.json({mssg: 'log out user'})
+
 }
 
 const createUser = async (req, res, next) => {
