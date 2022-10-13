@@ -365,7 +365,6 @@ export default function UserNav() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-
         
       </Box>
     </Box>

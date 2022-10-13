@@ -1,23 +1,37 @@
 const User = require('../models/User.model');
-const bcrypt = require('bcrypt');
 
 const getLogin = (req, res) => {
-
+    try {
+        if (req.user) {
+            res.json({
+                msg: 'User already logged in.'
+            })
+          }
+    } catch(err) {
+        res.json({
+            msg: err.message
+        })
+    }
 }
 
 const loginUser = async (req, res, next) => {
     const { email, password } = req.body;
 
     try {
+
         const user = await User.findOne({ email })
+        
         if (!user) {
+
             res.status(401).json({
                 msg: 'Login was not successful.',
                 error: 'Email not found.'
             })
+
         } else if (user && (await user.comparePassword(password))){
+            req
             res.status(200).json({
-                msg: 'User logged in.',
+                msg: 'Login successful',
                 "user": {
                     _id: user._id,
                     firstName: user.firstName,
@@ -62,18 +76,18 @@ const createUser = async (req, res, next) => {
 
     try {
         const user = await User.create({ firstName, lastName, email, password });
-        
+        res.cookie('email', email)
+        console.log(req.session)
         res.status(200).json({
             message: "User successfully created.",
             user,
           });
 
           //redirect to home page
-
-    }catch (Error){
+    }catch (err){
         res.status(400).json({
             message: "Error creating user.",
-            error: err.mesage,
+            error: err.message
           })
     }
 }

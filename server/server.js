@@ -7,8 +7,6 @@ const logger = require('morgan');
 const connectDB = require('./config/database');
 const cors = require('cors');
 
-const oneDay = 1000 * 60 * 60 * 24;
-
 require('dotenv').config({path: './config/.env'});
 
 const userRoutes = require('./routes/user.routes');
@@ -31,10 +29,13 @@ app.use(cookieParser());
 // Sessions
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: oneDay },
+    cookie: {
+      httpOnly: true,
+      maxAge: parseInt(process.env.SESSION_MAX_AGE)
+    },
     store: MongoStore.create({ mongoUrl: process.env.DB_STRING })
   })
 );
