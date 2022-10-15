@@ -34,7 +34,9 @@ export default function Transactions() {
                             </th>
                         </tr>
                     </thead>
-
+                    <tbody>
+                        {}
+                    </tbody>
                 </table>
             </ div>
         </>
