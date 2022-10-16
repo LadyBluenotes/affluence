@@ -13,20 +13,20 @@ export default function TransactionInput(){
                 type="date"
                 defaultValue="2022-01-21"
                 sx={{ 
-                    width: 220,
-                    marginRight: '25px' }}
+                    width: 160,
+                    margin: '10px' }}
             />
             <TextField 
                 id="outlined-basic" 
                 label="Details"
                 sx={{ 
                     width: 220,
-                    marginRight: '25px' }}
+                    margin: '10px' }}
                 />
             <FormControl 
                 sx={{ 
-                    width: 220,
-                    marginRight: '25px' }}
+                    width: 160,
+                    margin: '10px' }}
                 >
                 <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
                 <OutlinedInput
@@ -37,8 +37,8 @@ export default function TransactionInput(){
             </FormControl>
             <FormControl 
                 sx={{ 
-                    width: 220,
-                    marginRight: '25px' }}
+                    width: 200,
+                    margin: '10px' }}
             >
                 <InputLabel>Transaction Type</InputLabel>
                 <Select
@@ -55,8 +55,8 @@ export default function TransactionInput(){
             </FormControl>
             <FormControl 
                 sx={{ 
-                    width: 220,
-                    marginRight: '25px' }}
+                    width: 180,
+                    margin: '10px' }}
             >
                 <InputLabel>Category</InputLabel>
                 <Select
@@ -68,8 +68,8 @@ export default function TransactionInput(){
             </FormControl>
             <FormControl 
                 sx={{ 
-                    width: 220,
-                    marginRight: '25px' }}
+                    width: 180,
+                    margin: '10px' }}
             >
                 <InputLabel>SubCategory</InputLabel>
                 <Select
@@ -81,7 +81,10 @@ export default function TransactionInput(){
             </FormControl>
             <IconButton 
                 aria-label="add" 
-                size="large">
+                size="large"
+                sx={{
+                    margin: '10px'
+                }}>
                 <AddCircleOutlineIcon fontSize="inherit" />
             </IconButton>
         </>
