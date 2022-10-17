@@ -1,6 +1,9 @@
 import React from 'react';
 import './Transactions.css';
 import UserNav from '../../components/userNav';
+import TransactionInput from '../../components/Input/transactionInput';
+import TransactionTable from '../../components/Table/transactionTable';
+
 
 export default function Transactions() {
 
@@ -8,36 +11,9 @@ export default function Transactions() {
     return(
         <>
             <UserNav />
-            <div class='content'>
-
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                <p>Date</p>
-                            </th>
-                            <th>
-                                <p>Description</p>
-                            </th>
-                            <th>
-                                <p>Amount</p>
-                            </th>
-                            <th>
-                                <p>Transaction Type</p>
-                            </th>
-                            <th>
-                                <p>Category</p>
-                            </th>
-                            <th>
-                                <p>SubCategory</p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {}
-                    </tbody>
-                </table>
+            <div className='content'>
+                <TransactionInput />
+                <TransactionTable />
             </ div>
         </>
     )

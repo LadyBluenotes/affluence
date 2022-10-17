@@ -17,7 +17,6 @@ import IvestmentIcon from '@mui/icons-material/ShowChart';
 import SettingIcon from '@mui/icons-material/Settings';
 import ProfileIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import HorizontalBar from './Charts/horizontalBar';
 
 const drawerWidth = 240;
 
@@ -365,7 +364,7 @@ export default function UserNav() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        
+        {}
       </Box>
     </Box>
   );

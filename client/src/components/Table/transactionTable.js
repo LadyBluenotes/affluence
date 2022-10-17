@@ -3,29 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const rows = [
     // data pulled into here
-    {
-        id: 1,
-        date: 2022-02-02,
-        description: 'edit',
-        amount: '2000.00',
-        transactionType: 'Income',
-        category: 'Main',
-        subCategory: 'none'
-    }
 ];
-
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'CAD',
-  });
-  
-  const cadPrice = {
-    type: 'number',
-    width: 160,
-    valueFormatter: ({ value }) => currencyFormatter.format(value),
-    cellClassName: 'font-tabular-nums',
-  };
-  
 
 export default function TransactionTable() {
   return (
@@ -48,8 +26,17 @@ export default function TransactionTable() {
                 width: 220 
             },
             { 
-                field: 'subTotal', 
-                ...cadPrice 
+                field: 'Amount', 
+                type: 'number',
+                width: 160,
+                valueFormatter: (params) => {
+                    if (params.value == null) {
+                      return '$0';
+                    }
+      
+                    const valueFormatted = Number(params.value.toFixed(2));
+                    return `$ ${valueFormatted}`;
+                  }
         },
             {
                 field: 'transactionType',
